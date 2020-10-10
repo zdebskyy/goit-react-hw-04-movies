@@ -1,17 +1,33 @@
 import React, { Component } from "react";
 import fetchApi from "../API/FetchMethods";
 import { Link } from "react-router-dom";
+import queryString from "query-string";
 
 export default class MoviesPage extends Component {
   state = {
     searchQuery: "",
     movie: [],
   };
+
+  componentDidMount() {
+    const { query } = queryString.parse(this.props.location.search);
+    if (query) {
+      fetchApi
+        .fetchSearch(query)
+        .then((movie) => this.setState({ movie: [...movie.results] }));
+    }
+  }
   handleSubmit = (e) => {
     e.preventDefault();
-    fetchApi
-      .fetchSearch(this.state.searchQuery)
-      .then((movie) => this.setState({ movie: [...movie.results] }));
+    this.props.history.push({
+      pathname: this.props.location.pathname,
+      search: `query=${this.state.searchQuery}`,
+    });
+
+    this.state.searchQuery &&
+      fetchApi
+        .fetchSearch(this.state.searchQuery)
+        .then((movie) => this.setState({ movie: [...movie.results] }));
   };
   handleChange = (e) => {
     this.setState({
@@ -21,7 +37,7 @@ export default class MoviesPage extends Component {
 
   render() {
     const { movie } = this.state;
-    console.log(movie);
+
     return (
       <>
         <form onSubmit={this.handleSubmit}>

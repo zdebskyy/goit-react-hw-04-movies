@@ -19,7 +19,12 @@ export default class HomePage extends Component {
         <ul>
           {movies.map((movie) => (
             <li key={movie.id}>
-              <Link to={`/movies/${movie.id}`}>
+              <Link
+                to={{
+                  pathname: `/movies/${movie.id}`,
+                  state: { from: this.props.location },
+                }}
+              >
                 {movie.name ? movie.name : movie.title}
               </Link>
             </li>
