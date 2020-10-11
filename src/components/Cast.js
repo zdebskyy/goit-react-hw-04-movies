@@ -25,19 +25,19 @@ export default class Cast extends Component {
       <div>
         {loading ? (
           <Loader />
+        ) : casts.length > 0 ? (
+          <ul>
+            {casts.map((cast) => (
+              <li key={cast.id}>
+                <p>
+                  Name: {cast.name}, Character: {cast.character}
+                </p>
+                <img src={cast.profile_path} alt={cast.name} />
+              </li>
+            ))}
+          </ul>
         ) : (
-          casts && (
-            <ul>
-              {casts.map((cast) => (
-                <li key={cast.id}>
-                  <p>
-                    Name: {cast.name}, Character: {cast.character}
-                  </p>
-                  <img src={cast.profile_path} alt={cast.name} />
-                </li>
-              ))}
-            </ul>
-          )
+          <p>There is no information yet</p>
         )}
       </div>
     );

@@ -1,0 +1,11 @@
+.navigation {
+  display: flex;
+  width: 500px;
+  justify-content: space-around;
+}
+.list {
+  list-style: none;
+}
+.listItem {
+  padding: 5px;
+}

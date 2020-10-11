@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import fetchApi from "../API/FetchMethods";
+import styles from "../CSS/Main.module.css";
 
 export default class HomePage extends Component {
   state = {
@@ -16,9 +17,9 @@ export default class HomePage extends Component {
 
     return (
       <>
-        <ul>
+        <ul className={styles.list}>
           {movies.map((movie) => (
-            <li key={movie.id}>
+            <li key={movie.id} className={styles.listItem}>
               <Link
                 to={{
                   pathname: `/movies/${movie.id}`,

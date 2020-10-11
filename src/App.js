@@ -1,18 +1,14 @@
 import React from "react";
-import { Route, Switch, NavLink } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import HomePage from "./components/HomePage";
 import MoviesPage from "./components/MoviesPage";
 import MovieDetailsPage from "./components/MovieDetailsPage";
+import Navigation from "./components/Navigation";
 
 function App() {
   return (
     <div>
-      <header>
-        <ul>
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/movies">Movie Page</NavLink>
-        </ul>
-      </header>
+      <Navigation />
 
       <Switch>
         <Route path="/" exact component={HomePage} />

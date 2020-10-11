@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import fetchApi from "../API/FetchMethods";
 import { Link } from "react-router-dom";
 import queryString from "query-string";
+import styles from "../CSS/Main.module.css";
 
 export default class MoviesPage extends Component {
   state = {
@@ -53,9 +54,9 @@ export default class MoviesPage extends Component {
         </form>
         <hr></hr>
         {movie && (
-          <ul>
+          <ul className={styles.list}>
             {movie.map((m) => (
-              <li key={m.id}>
+              <li key={m.id} className={styles.listItem}>
                 <Link
                   to={{
                     pathname: `/movies/${m.id}`,
