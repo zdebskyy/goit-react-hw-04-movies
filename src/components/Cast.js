@@ -32,7 +32,10 @@ export default class Cast extends Component {
                 <p>
                   Name: {cast.name}, Character: {cast.character}
                 </p>
-                <img src={cast.profile_path} alt={cast.name} />
+                <img
+                  src={"https://image.tmdb.org/t/p/w200" + cast.profile_path}
+                  alt={cast.name}
+                />
               </li>
             ))}
           </ul>

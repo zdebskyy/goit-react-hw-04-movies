@@ -28,7 +28,7 @@ export default class MovieDetailsPage extends Component {
   };
 
   render() {
-    console.log(this.props.match);
+    // console.log(this.props.match);
     // console.log(this.props.location);
     const { movie, loading } = this.state;
 
@@ -44,7 +44,10 @@ export default class MovieDetailsPage extends Component {
         ) : (
           movie && (
             <>
-              <img src={movie.poster_path} alt={movie.title} />
+              <img
+                src={"https://image.tmdb.org/t/p/w500" + movie.poster_path}
+                alt={movie.title}
+              />
               <p>Title : {movie.original_title}</p>
               <p>User popularity : {movie.popularity}</p>
               <p>Overview : {movie.overview}</p>
