@@ -1,23 +1,31 @@
 import React, { Component } from "react";
 import fetchApi from "../API/FetchMethods";
+import Loader from "react-loader-spinner";
 
 export default class Review extends Component {
   state = {
     reviews: [],
+    loading: false,
+    error: null,
   };
   componentDidMount() {
+    this.setState({ loading: true });
     fetchApi
       .fetchGetMovieReviews(this.props.match.params.movieId)
-      .then((reviews) => this.setState({ reviews: [...reviews.results] }));
+      .then((reviews) => this.setState({ reviews: [...reviews.results] }))
+      .catch((error) => this.setState({ error }))
+      .finally(() => this.setState({ loading: false }));
   }
 
   render() {
-    const { reviews } = this.state;
+    const { reviews, loading } = this.state;
     console.log(reviews);
 
     return (
       <div>
-        {reviews > 0 ? (
+        {loading ? (
+          <Loader />
+        ) : reviews > 0 ? (
           <ul>
             {reviews.map((review) => (
               <li key={review.id}>

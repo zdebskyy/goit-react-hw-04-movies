@@ -3,15 +3,21 @@ import fetchApi from "../API/FetchMethods";
 import { Link, Route } from "react-router-dom";
 import Cast from "./Cast";
 import Review from "./Review";
+import Loader from "react-loader-spinner";
 
 export default class MovieDetailsPage extends Component {
   state = {
     movie: null,
+    loading: false,
+    error: null,
   };
   componentDidMount() {
+    this.setState({ loading: true });
     fetchApi
       .fetchGetMovieDetails(this.props.match.params.movieId)
-      .then((movie) => this.setState({ movie }));
+      .then((movie) => this.setState({ movie }))
+      .catch((error) => this.setState({ error }))
+      .finally(() => this.setState({ loading: false }));
   }
   handleGoBack = () => {
     const { state } = this.props.location;
@@ -24,7 +30,7 @@ export default class MovieDetailsPage extends Component {
   render() {
     console.log(this.props.match);
     // console.log(this.props.location);
-    const { movie } = this.state;
+    const { movie, loading } = this.state;
 
     return (
       <div>
@@ -33,46 +39,50 @@ export default class MovieDetailsPage extends Component {
         </button>
         <br></br>
         <br></br>
-        {movie && (
-          <>
-            <img src={movie.poster_path} alt={movie.title} />
-            <p>Title : {movie.original_title}</p>
-            <p>User popularity : {movie.popularity}</p>
-            <p>Overview : {movie.overview}</p>
-            {movie.genres.map((genre) => (
-              <ul key={genre.id}>
-                <li>{genre.name}</li>
-              </ul>
-            ))}
+        {loading ? (
+          <Loader />
+        ) : (
+          movie && (
+            <>
+              <img src={movie.poster_path} alt={movie.title} />
+              <p>Title : {movie.original_title}</p>
+              <p>User popularity : {movie.popularity}</p>
+              <p>Overview : {movie.overview}</p>
+              {movie.genres.map((genre) => (
+                <ul key={genre.id}>
+                  <li>{genre.name}</li>
+                </ul>
+              ))}
 
-            <Link
-              to={{
-                pathname: `${this.props.match.url}/cast`,
-                state: { from: this.props.location },
-              }}
-            >
-              Cast
-            </Link>
-            <Route path={`${this.props.match.path}/cast`} component={Cast} />
+              <Link
+                to={{
+                  pathname: `${this.props.match.url}/cast`,
+                  state: { from: this.props.location },
+                }}
+              >
+                Cast
+              </Link>
+              <Route path={`${this.props.match.path}/cast`} component={Cast} />
 
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
 
-            <Link
-              to={{
-                pathname: `${this.props.match.url}/reviews`,
-                state: { from: this.props.location },
-              }}
-            >
-              Reviews
-            </Link>
-            <Route
-              path={`${this.props.match.path}/reviews`}
-              component={Review}
-            />
-          </>
+              <Link
+                to={{
+                  pathname: `${this.props.match.url}/reviews`,
+                  state: { from: this.props.location },
+                }}
+              >
+                Reviews
+              </Link>
+              <Route
+                path={`${this.props.match.path}/reviews`}
+                component={Review}
+              />
+            </>
+          )
         )}
       </div>
     );

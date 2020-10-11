@@ -7,14 +7,17 @@ export default class MoviesPage extends Component {
   state = {
     searchQuery: "",
     movie: [],
+    error: null,
   };
 
   componentDidMount() {
     const { query } = queryString.parse(this.props.location.search);
+
     if (query) {
       fetchApi
         .fetchSearch(query)
-        .then((movie) => this.setState({ movie: [...movie.results] }));
+        .then((movie) => this.setState({ movie: [...movie.results] }))
+        .catch((error) => this.setState({ error }));
     }
   }
   handleSubmit = (e) => {
