@@ -51,11 +51,12 @@ export default class MovieDetailsPage extends Component {
               <p>Title : {movie.original_title}</p>
               <p>User popularity : {movie.popularity}</p>
               <p>Overview : {movie.overview}</p>
-              {movie.genres.map((genre) => (
-                <ul key={genre.id}>
-                  <li>{genre.name}</li>
-                </ul>
-              ))}
+              <ul>
+                Genres:
+                {movie.genres.map((genre) => (
+                  <li key={genre.id}> {genre.name}</li>
+                ))}
+              </ul>
 
               <Link
                 to={{
