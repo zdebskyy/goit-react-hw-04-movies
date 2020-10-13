@@ -5,7 +5,32 @@
 }
 .list {
   list-style: none;
+  margin: 0;
+  padding: 0;
 }
 .listItem {
   padding: 5px;
+}
+
+.castList {
+  display: flex;
+  width: 1600px;
+  flex-wrap: wrap;
+  composes: list;
+  composes: listItem;
+}
+.castItem {
+  width: 260px;
+}
+
+.defaultImg {
+  display: block;
+  width: 200px;
+  height: 300px;
+}
+
+.defaultPoster {
+  display: block;
+  width: 500px;
+  height: auto;
 }

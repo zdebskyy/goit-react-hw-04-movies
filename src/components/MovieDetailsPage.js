@@ -3,6 +3,7 @@ import fetchApi from "../API/FetchMethods";
 import { Link, Route } from "react-router-dom";
 import Cast from "./Cast";
 import Review from "./Review";
+import Movie from "./Movie";
 import Loader from "react-loader-spinner";
 
 export default class MovieDetailsPage extends Component {
@@ -11,6 +12,7 @@ export default class MovieDetailsPage extends Component {
     loading: false,
     error: null,
   };
+
   componentDidMount() {
     this.setState({ loading: true });
     fetchApi
@@ -44,19 +46,7 @@ export default class MovieDetailsPage extends Component {
         ) : (
           movie && (
             <>
-              <img
-                src={"https://image.tmdb.org/t/p/w500" + movie.poster_path}
-                alt={movie.title}
-              />
-              <p>Title : {movie.original_title}</p>
-              <p>User popularity : {movie.popularity}</p>
-              <p>Overview : {movie.overview}</p>
-              <ul>
-                Genres:
-                {movie.genres.map((genre) => (
-                  <li key={genre.id}> {genre.name}</li>
-                ))}
-              </ul>
+              <Movie movie={movie} />
 
               <Link
                 to={{
@@ -68,7 +58,6 @@ export default class MovieDetailsPage extends Component {
               </Link>
               <Route path={`${this.props.match.path}/cast`} component={Cast} />
 
-              <br></br>
               <br></br>
               <br></br>
               <br></br>
