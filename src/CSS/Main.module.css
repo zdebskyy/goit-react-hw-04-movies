@@ -14,7 +14,7 @@
 
 .castList {
   display: flex;
-  width: 1600px;
+  width: 1400px;
   flex-wrap: wrap;
   composes: list;
   composes: listItem;
